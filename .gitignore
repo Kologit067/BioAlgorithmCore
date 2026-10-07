@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 1.txt
 2.txt
+/BioAlgorithm.Core/Properties/PublishProfiles/ClickOnceProfile.pubxml
