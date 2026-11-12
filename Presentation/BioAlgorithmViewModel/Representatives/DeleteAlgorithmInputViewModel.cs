@@ -138,6 +138,7 @@ namespace BioAlgorithmViewModel.Representatives
                         _message.InputAlgorithmViewModel.DeleteSelectedItem();
                         ExecutionState = "Operation completed";
                     }
+                    else
                     {
                         ExecutionState = $"Operation failed: {result}";
                     }
@@ -154,6 +155,7 @@ namespace BioAlgorithmViewModel.Representatives
                         _message.InputAlgorithmViewModel.DeleteSelectedItem();
                         ExecutionState = "Operation completed";
                     }
+                    else
                     {
                         ExecutionState = $"Operation failed: {result}";
                     }

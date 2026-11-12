@@ -138,7 +138,7 @@ GROUP BY [Algorithm], [NumberOfSet], [Dimension], [MaxCount]
                     if (!string.IsNullOrEmpty(algorithmGroupListSort))
                         sql += $@"ORDER BY {algorithmGroupListSort}
 ";
-                    algorithmGroups = (await db.QueryAsync<RepresentativeAlgorithmGroupDimension>(sql, commandTimeout: 180)).ToList();
+                    algorithmGroups = (await db.QueryAsync<RepresentativeAlgorithmGroupDimension>(sql, commandTimeout: 300)).ToList();
                 }
                 return algorithmGroups;
             }
@@ -233,7 +233,7 @@ UPDATE ri
   INNER JOIN [BioAlgorithm].[dbo].[RepresentativesPerfomance] as rgd
   ON rgd.RepresentativesInputId = ri.RepresentativesInputId AND rgd.Algorithm = 'RepresentativesGreedyImproveRD' AND ri.Dimension = {dimension} AND ri.NumberOfSet = {numberOfSet}  AND ri.MaxCount = {maxCount}
 ";
-                    await db.ExecuteAsync(sql, commandTimeout: 180);
+                    await db.ExecuteAsync(sql, commandTimeout: 300);
                 }
             }
             catch (Exception ex)
@@ -264,7 +264,7 @@ FROM CTE ";
                     if (!string.IsNullOrEmpty(algorithmGroupListSort))
                         sql += $@"ORDER BY {algorithmGroupListSort}
 ";
-                    groups = (await db.QueryAsync<HittingSetInputGroup>(sql, commandTimeout: 180)).ToList();
+                    groups = (await db.QueryAsync<HittingSetInputGroup>(sql, commandTimeout: 600)).ToList();
                 }
                 return groups;
             }
@@ -287,7 +287,7 @@ INNER JOIN [dbo].[RepresentativesInput] AS ri
 ON (rp.RepresentativesInputId = ri.RepresentativesInputId)
 GROUP BY [Algorithm], [NumberOfSet], [Dimension], [MaxCount]
 ";
-                algorithmWithDimensions = ( await db.QueryAsync<RepresentativeAlgorithWithDimension>(query)).ToList();
+                algorithmWithDimensions = ( await db.QueryAsync<RepresentativeAlgorithWithDimension>(query, commandTimeout: 300)).ToList();
             }
             return algorithmWithDimensions;
         }
@@ -314,7 +314,7 @@ SELECT [Algorithm],
 	SUM(SumDuration)/SUM(cnt) AS AverageDuration
 FROM CTE
 GROUP BY [Algorithm]";
-                algorithmGroups = ( await db.QueryAsync<RepresentativeAlgorithmGroup>(sql,commandTimeout: 180)).ToList();
+                algorithmGroups = ( await db.QueryAsync<RepresentativeAlgorithmGroup>(sql,commandTimeout: 300)).ToList();
             }
             return algorithmGroups;
         }
@@ -402,12 +402,12 @@ GROUP BY [Algorithm]";
 	  ,[Duration],[DurationMilliSeconds],[DateComplete],[IsComplete]
       ,[LastRoute],[OptimalRoute],[CountTerminal],[BestValue]
       ,[UpdateOptcount],[ElemenationCount]
-FROM [BioAlgorithm].[dbo].[RepresentativesPerfomance] AS rp
+FROM [dbo].[RepresentativesPerfomance] AS rp
 INNER JOIN [dbo].[RepresentativesInput] AS ri
 ON (rp.RepresentativesInputId = ri.RepresentativesInputId)
 {where}
 ORDER BY {order}";
-                representativesPerfomances = ( await db.QueryAsync<RepresentativesPerfomance>(query, commandTimeout: 180)).ToList();
+                representativesPerfomances = ( await db.QueryAsync<RepresentativesPerfomance>(query, commandTimeout: 300)).ToList();
             }
             return representativesPerfomances;
         }
@@ -507,7 +507,7 @@ ORDER BY {order}";
 FROM [dbo].[RepresentativesInput] AS ri
 {where}
 ORDER BY {order}";
-                representativesInputs = (await db.QueryAsync<RepresentativesInputDao>(query, commandTimeout: 180)).ToList();
+                representativesInputs = (await db.QueryAsync<RepresentativesInputDao>(query, commandTimeout: 300)).ToList();
             }
             updateIsomorphicDict.Clear();
             return representativesInputs;
@@ -525,7 +525,7 @@ ORDER BY {order}";
       ,[InputLenAvg],[InputData],[InputDataShort],Isomorphic,IsomorphicBipart, IsomorphismResult, IsomorphismBipartResult, TypeTask, GreedyComparison
 FROM [dbo].[RepresentativesInput] AS ri
 {where}";
-                representativesInputs = (await db.QueryAsync<InputDataSlim>(query, commandTimeout: 180)).ToList();
+                representativesInputs = (await db.QueryAsync<InputDataSlim>(query, commandTimeout: 300)).ToList();
             }
             return representativesInputs;
         }
@@ -677,7 +677,7 @@ FROM [dbo].[RepresentativesInput] AS ri
   ON rgd.RepresentativesInputId = ri.RepresentativesInputId AND rgd.Algorithm = 'RepresentativesGreedyImproveRD' AND ri.Dimension = {representativesPerfomanceFilter.Dimension} AND ri.NumberOfSet = {representativesPerfomanceFilter.NumberOfSet} AND ri.MaxCount = {representativesPerfomanceFilter.MaxCount}
 {where}
 ORDER BY {order}";
-                representativesInputs = (await db.QueryAsync<InputDataGreedyComparison>(query, commandTimeout: 180)).ToList();
+                representativesInputs = (await db.QueryAsync<InputDataGreedyComparison>(query, commandTimeout: 300)).ToList();
             }
             return representativesInputs;
         }
@@ -761,7 +761,7 @@ ra.[Algorithm] = '{representativesPerfomanceCompareFilter.Algorithm1}' AND rb.[A
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                representativesPerfomancesCompare = (await db.QueryAsync<RepresentativesPerfomanceCompare>(query)).ToList();
+                representativesPerfomancesCompare = (await db.QueryAsync<RepresentativesPerfomanceCompare>(query, commandTimeout: 300)).ToList();
             }
             return representativesPerfomancesCompare;
         }

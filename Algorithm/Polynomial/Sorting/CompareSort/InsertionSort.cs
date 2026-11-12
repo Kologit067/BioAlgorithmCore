@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-
+﻿
 namespace CompareSort
 {
     public class InsertionSort<T> : ICompareSort<T> where T : IComparable<T>
