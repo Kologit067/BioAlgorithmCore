@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113
+# Visual Studio Version 18
+VisualStudioVersion = 18.10.12224.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioAlgorithm.Core", "BioAlgorithm.Core\BioAlgorithm.Core.csproj", "{06E9611B-5936-4B2E-A58F-690C18D57B88}"
 EndProject
@@ -65,7 +65,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExactStringCompare", "Algor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Set", "Set", "{E24629CE-B6CB-4B57-8D26-7C99E45C9665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepresentativesSet", "Algorithm\Set\RepresentativesSet\RepresentativesSet.csproj", "{EA3449E3-E3DA-41A5-8065-5B6C15D8F8B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HittingSet", "Algorithm\Set\HittingSet\HittingSet.csproj", "{AB9D85A5-B8A3-EDE8-A1D1-2403103B3AC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,10 +137,10 @@ Global
 		{40512F8A-E072-41B2-AC83-A93F37D87E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40512F8A-E072-41B2-AC83-A93F37D87E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40512F8A-E072-41B2-AC83-A93F37D87E07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA3449E3-E3DA-41A5-8065-5B6C15D8F8B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA3449E3-E3DA-41A5-8065-5B6C15D8F8B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA3449E3-E3DA-41A5-8065-5B6C15D8F8B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA3449E3-E3DA-41A5-8065-5B6C15D8F8B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB9D85A5-B8A3-EDE8-A1D1-2403103B3AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9D85A5-B8A3-EDE8-A1D1-2403103B3AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9D85A5-B8A3-EDE8-A1D1-2403103B3AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9D85A5-B8A3-EDE8-A1D1-2403103B3AC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +172,9 @@ Global
 		{32F10C79-D600-4F3D-A87A-99B29DBF5C30} = {8BF9FE0A-AD9E-4603-8E2F-3B63A7441757}
 		{40512F8A-E072-41B2-AC83-A93F37D87E07} = {C5F884D6-AD15-42A3-9C8A-F9DAEEFA384D}
 		{E24629CE-B6CB-4B57-8D26-7C99E45C9665} = {16C0B8C5-EB04-4D56-9DAE-F0A3F15C097F}
-		{EA3449E3-E3DA-41A5-8065-5B6C15D8F8B4} = {E24629CE-B6CB-4B57-8D26-7C99E45C9665}
+		{AB9D85A5-B8A3-EDE8-A1D1-2403103B3AC5} = {E24629CE-B6CB-4B57-8D26-7C99E45C9665}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {79DF5EDB-3193-414D-9F3F-EFC962C56118}
 	EndGlobalSection
 EndGlobal

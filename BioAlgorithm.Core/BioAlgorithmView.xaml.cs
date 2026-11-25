@@ -1,7 +1,7 @@
 ﻿using BioAlgorithmViewModel;
-using BioAlgorithmViewModel.Representatives.Messages;
-using BioAlgorithmViewModel.Representatives.Utility;
-using BioAlgorithm.Core.Representatives;
+using BioAlgorithmViewModel.HittingSet.Messages;
+using BioAlgorithmViewModel.HittingSet.Utility;
+using BioAlgorithm.Core.HittingSet;
 using FindingRegulatoryMotifs.Enumeration;
 using StatisticsStorage.Accumulators;
 using System.Windows;
@@ -27,7 +27,7 @@ namespace BioAlgorithm
 
         private void OnAlgorithmGroupOpenWindowMessageReceived(AlgorithmGroupOpenWindowMessage message)
         {
-            RepresentativeAlgorithmWindow window = new(message);
+            HittingSetAlgorithmWindow window = new(message);
             window.Show();
         }
 

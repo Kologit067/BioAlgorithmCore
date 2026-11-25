@@ -1,0 +1,4 @@
+- Keep diffs small
+- No unnecessary dependencies
+- Preserve architecture
+- Do not rewrite unrelated code

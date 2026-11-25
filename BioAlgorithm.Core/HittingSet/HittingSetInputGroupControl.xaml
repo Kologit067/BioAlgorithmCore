@@ -1,0 +1,192 @@
+﻿<UserControl x:Class="BioAlgorithm.Core.HittingSet.HittingSetInputGroupControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BioAlgorithm.Core.HittingSet"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="GroupGrid">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="3">
+                <Button Command="{Binding RefreshHittingSetGroupListCommand}">
+                    <Image Width="25" Height="25" Source="/Pictures/reload.png" ToolTip="Reload"/>
+                </Button>
+                <Label Content="Sort" Margin="15,1,5,1"/>
+                <ComboBox Name="cbGroupOrder"  ItemsSource="{Binding HittingSetInputGroupSortItems}"
+                                 SelectedItem="{Binding HittingSetInputGroupSort}" IsEditable="true" IsReadOnly="true"/>
+                <Label FontWeight="Bold" Margin="50,0,0,0">Hitting Set Group Input List</Label>
+            </StackPanel>
+            <DataGrid Grid.Row="1" ItemsSource="{Binding HittingSetInputGroups}" IsReadOnly="false" AutoGenerateColumns="False" Margin="1"
+                          AlternationCount="2" RowBackground="#DDDDFF" AlternatingRowBackground="#CCCCEE"
+                          SelectedItem="{Binding SelectedHittingSetInputGroup}"
+                          SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Move To Filter of Performance Tab And Apply Filter" Margin="1" Padding="1" 
+                                       Command="{Binding Path=DataContext.ToFilterCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/hs-performance-result.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Move to Master-Details Form and Fill Filter" Margin="1" Padding="1" 
+                                       Command="{Binding Path=DataContext.ToFilterInGroupCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/hs-master-details.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Move to InputData tab and Fill Filter" Margin="1" Padding="1" 
+                                       Command="{Binding Path=DataContext.ToFilterInInputCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/hs-input.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Move to Input Greedy Comparison tab and Fill Filter" Margin="1" Padding="1" 
+                                        Command="{Binding Path=DataContext.ToInputGeedyComparisonCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/greedy-comparison.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Run Algorithm Task" Margin="1" Padding="1" 
+                                       Command="{Binding Path=DataContext.RunTaskInputCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/task3.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Run Algorithm Task with Step" Margin="1" Padding="1" 
+                                       Command="{Binding Path=DataContext.RunTaskStepInputCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/task4.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Run Isomorphism Task" Margin="1" Padding="1" 
+                                       Command="{Binding Path=DataContext.RunIsomorphismCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/isomorphism.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Run Isomorphism Bipart" Margin="1" Padding="1" 
+                                       Command="{Binding Path=DataContext.RunIsomorphismBiPartCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/isomorphism-bipart.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Run Type Task" Margin="1" Padding="1" 
+                                       Command="{Binding Path=DataContext.RunTypeTaskCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/TaskType.ICO" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Run GreedyComparison Task" Margin="1" Padding="1" 
+                                       Command="{Binding Path=DataContext.RunGreedyComparisonCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/input.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Open in Win" Margin="1" Padding="1" 
+                                       Command="{Binding Path=DataContext.OpenInWindowCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/DOCL.ICO" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Delete" Margin="1" Padding="1" 
+                                           Command="{Binding Path=DataContext.DeleteGroupCommand, ElementName=GroupGrid}" 
+                                           CommandParameter="{Binding}">
+                                        <Image Width="25" Height="25" Source="/Pictures/deleteTrackFromTheMap.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="NumberOfSet" Binding="{Binding NumberOfSet}" MinWidth="50"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Dimension" Binding="{Binding Dimension}" MinWidth="50"></DataGridTextColumn>
+                    <DataGridTextColumn Header="MaxCount" Binding="{Binding MaxCount}" MinWidth="100"></DataGridTextColumn>
+                    <DataGridTextColumn Header="TotalCount" Binding="{Binding TotalCount}" MinWidth="100"></DataGridTextColumn>
+                    <DataGridTextColumn Header="SumTypaTask" Binding="{Binding SumTypaTask}" MinWidth="150"></DataGridTextColumn>
+                    <DataGridTextColumn Header="TypeTaskRelation" Binding="{Binding TypeTaskRelation}" MinWidth="150"></DataGridTextColumn>
+                    <DataGridTextColumn Header="SumIsomorphic" Binding="{Binding SumIsomorphic}" MinWidth="150"></DataGridTextColumn>
+                    <DataGridTextColumn Header="SumIsomorphicBipart" Binding="{Binding SumIsomorphicBipart}" MinWidth="150"></DataGridTextColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="4">
+                <TextBlock Text="{Binding ExecutionState}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+</UserControl>

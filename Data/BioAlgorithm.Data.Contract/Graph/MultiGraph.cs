@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
+using System.Xml.Linq;
 using BaseLibrary.Helpers;
 
 
@@ -34,6 +36,15 @@ namespace GraphLib
         }
 
         //--------------------------------------------------------------------------------------
+        /// <summary>
+        /// 	1  - with element with only 1 set					- reduce
+        ///	    2  - elemуnt with element.set.count >= sets.count - 1 - solable
+        ///	    4  - set with only 1 element							- reduce
+	    ///     8  - there is set that contans all elements - reduce
+        ///	    16 - other division on 2 separate part of sets       -red
+        ///	    32 - if set of sets that contain element e1 is subset of set of sets that contain element el2
+        /// </summary>
+        /// <returns></returns>
         public int DefineType()
         {
             int graphType = 0;

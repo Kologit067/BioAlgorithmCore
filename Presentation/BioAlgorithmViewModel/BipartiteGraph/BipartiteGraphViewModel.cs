@@ -5,9 +5,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using BioAlgorithmViewModel.Mappings;
-using BioAlgorithmViewModel.Representatives.Utility;
-using BioAlgorithmViewModel.Representatives.Messages;
-using BioAlgorithm.RepresentativesModel;
+using BioAlgorithmViewModel.HittingSet.Utility;
+using BioAlgorithmViewModel.HittingSet.Messages;
+using BioAlgorithm.HittingSetModel;
 
 namespace BioAlgorithmViewModel.BipartiteGraphModel
 {
