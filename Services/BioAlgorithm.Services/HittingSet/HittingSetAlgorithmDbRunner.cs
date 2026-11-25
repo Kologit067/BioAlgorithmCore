@@ -1,6 +1,6 @@
 ﻿using BaseContract.Interfaces;
 using BaseLibrary.Helpers;
-using BioAlgorithm.Data.Contract.Representatives.Data.Contract;
+using BioAlgorithm.Data.Contract.HittingSet.Data.Contract;
 using StatisticsStorage.Accumulators;
 using StatisticsStorage.Savers;
 
@@ -8,7 +8,7 @@ namespace BioAlgorithm.Services.HittingSet
 {
     public class HittingSetAlgorithmDbRunner 
     {
-        protected List<RepresentativesStatisticAccumulator> _statisticAccumulators;
+        protected List<HittingSetStatisticAccumulator> _statisticAccumulators;
         protected readonly List<IHittingSetAlgorithm> hittingSetAlgorithms;
         protected readonly List<InputDataSlim> _inputDataList;
 //        protected int _fLimit;
@@ -31,22 +31,22 @@ namespace BioAlgorithm.Services.HittingSet
             _inputDataList = inputDataList;
 
             this.hittingSetAlgorithms = hittingSetAlgorithms;
-            _statisticAccumulators = new List<RepresentativesStatisticAccumulator>();
+            _statisticAccumulators = new List<HittingSetStatisticAccumulator>();
             if (_isSave)
             {
                 foreach (var algorithm in this.hittingSetAlgorithms)
                 {
-                    IRepresentativesSaver saver = null;
+                    IHittingSetSaver saver = null;
                     if (algorithm.AlgorithmName == "Empty")
                     {
-                        saver = new RepresentativesInputSaver();
+                        saver = new HittingSetInputSaver();
                     }
                     else
                     {
-                        saver = new RepresentativesSaver();
+                        saver = new HittingSetSaver();
                     }
 
-                    var statisticAccumulator = new RepresentativesStatisticAccumulator(saver, pLength, pCardinality, (decimal)_maxCount, (decimal)1, bufferSize);
+                    var statisticAccumulator = new HittingSetStatisticAccumulator(saver, pLength, pCardinality, (decimal)_maxCount, (decimal)1, bufferSize);
 
                     algorithm.StatisticAccumulator = statisticAccumulator;
                     _statisticAccumulators.Add(statisticAccumulator);

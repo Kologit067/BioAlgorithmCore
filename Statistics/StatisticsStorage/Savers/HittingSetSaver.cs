@@ -1,0 +1,128 @@
+﻿using System.Data;
+using StatisticsStorage.Accumulators.Objects;
+using BioAlgorithm.Data.HittingSet.Data;
+using Microsoft.Data.SqlClient;
+using BaseContract.Interfaces;
+
+namespace StatisticsStorage.Savers
+{
+    public class HittingSetSaver : IHittingSetSaver
+    {
+        private string _connectionString;
+        private readonly HittingSetRepository _hittingSetRepository;
+        public HittingSetSaver()
+        {
+ //           _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorithmhs"].ConnectionString;
+            _connectionString = "Data Source=LAPTOP-8098K11E\\SQLEXPRESS;Initial Catalog=BioAlgorithmHS;Integrated Security=true;TrustServerCertificate=True";
+            _hittingSetRepository = new HittingSetRepository(_connectionString);
+        }
+
+        public string Save(List<HittingSetPerfomance> hittingSetPerfomances)
+        {
+            var rp = hittingSetPerfomances.GroupBy(r => r.InputData).Select(g => new { g.Key, Count = g.Count() }).ToList();
+            var rps = hittingSetPerfomances.GroupBy(r => r.InputDataShort).Select(g => new { g.Key, Count = g.Count() }).ToList();
+            string error = null;
+
+            try
+            {
+
+                DataTable performance = new DataTable();
+                performance.Columns.Add("NumberOfSet", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("Dimension", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("Step", System.Type.GetType("System.Decimal"));
+                performance.Columns.Add("MaxCount", System.Type.GetType("System.Decimal"));
+                performance.Columns.Add("InputLen", System.Type.GetType("System.String"));
+                performance.Columns.Add("InputLenSort", System.Type.GetType("System.String"));
+                performance.Columns.Add("InputLenAvg", System.Type.GetType("System.Decimal"));
+                performance.Columns.Add("InputData", System.Type.GetType("System.String"));
+                performance.Columns.Add("InputDataShort", System.Type.GetType("System.String"));
+                performance.Columns.Add("Algorithm", System.Type.GetType("System.String"));
+                performance.Columns.Add("NumberOfIteration", System.Type.GetType("System.Int64"));
+                performance.Columns.Add("Duration", System.Type.GetType("System.Int64"));
+                performance.Columns.Add("DurationMilliSeconds", System.Type.GetType("System.Int64"));
+                performance.Columns.Add("DateComplete", System.Type.GetType("System.DateTime"));
+                performance.Columns.Add("IsComplete", System.Type.GetType("System.Boolean"));
+                performance.Columns.Add("LastRoute", System.Type.GetType("System.String"));
+                performance.Columns.Add("OptimalRoute", System.Type.GetType("System.String"));
+                performance.Columns.Add("CountTerminal", System.Type.GetType("System.Int64"));
+                performance.Columns.Add("BestValue", System.Type.GetType("System.Int64"));
+                performance.Columns.Add("UpdateOptcount", System.Type.GetType("System.Int64"));
+                performance.Columns.Add("ElemenationCount", System.Type.GetType("System.Int64"));
+
+                DataTable solutions = new DataTable();
+                solutions.Columns.Add("NumberOfSet", System.Type.GetType("System.Int32"));
+                solutions.Columns.Add("Dimension", System.Type.GetType("System.Int32"));
+                solutions.Columns.Add("Step", System.Type.GetType("System.Decimal"));
+                solutions.Columns.Add("InputData", System.Type.GetType("System.String"));
+                solutions.Columns.Add("Algorithm", System.Type.GetType("System.String"));
+                solutions.Columns.Add("OutputPresentation", System.Type.GetType("System.String"));
+
+                foreach (var ps in hittingSetPerfomances)
+                {
+                    performance.Rows.Add(
+                        ps.NumberOfSet, 
+                        ps.Dimension,
+                        ps.Step,
+                        ps.MaxCount,
+                        ps.InputLen,
+                        ps.InputLenSort,
+                        (decimal)ps.InputLenAvg,
+                        ps.InputData,
+                        ps.InputDataShort, 
+                        ps.Algorithm,
+                        ps.IterationCount, 
+                        ps.Duration, 
+                        ps.DurationMilliSeconds, 
+                        ps.DateComplete, 
+                        ps.IsComplete,
+                        ps.LastRoute,
+                        ps.OptimalRoute,
+                        ps.CountTerminal, 
+                        ps.BestValue, 
+                        ps.UpdateOptcount, 
+                        ps.ElemenationCount
+                        );
+
+                    for (int i = 0; i < ps.OptimalSets.Count; i++)
+                    {
+                        solutions.Rows.Add(ps.NumberOfSet, ps.Dimension, ps.Step, ps.InputData, ps.Algorithm, ps.OptimalSets[i]);
+                    }
+
+                }
+
+                SqlConnection connection = new SqlConnection(_connectionString);
+                connection.Open();
+                try
+                {
+                    SqlCommand addCommand = new SqlCommand("addHittingSetPerfomance", connection);
+                    addCommand.CommandType = CommandType.StoredProcedure;
+                    addCommand.CommandTimeout = 300;
+                    SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@HittingSetPerfomances", performance);
+                    tvpParam.SqlDbType = SqlDbType.Structured;
+                    tvpParam.TypeName = "dbo.HittingSetPerfomanceType";
+                    SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@HittingSetSolutions", solutions);
+                    tvpParam2.SqlDbType = SqlDbType.Structured;
+                    tvpParam2.TypeName = "dbo.HittingSetSolutionType";
+                    addCommand.ExecuteNonQuery();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+ 
+            }
+            catch (Exception ex)
+            {
+                error = ex.ToString();
+            }
+            return error;
+
+        }
+
+        public async Task<string?> DeleteAsync(string algorithm, int? numberOfSet = null, int? dimension = null, decimal? maxCount = null)
+        {
+            return await _hittingSetRepository.DeleteAsync(algorithm, numberOfSet, dimension, maxCount);
+        }
+
+    }
+}

@@ -1,5 +1,5 @@
 ﻿using BioAlgorithmViewModel.Common;
-using BioAlgorithmViewModel.Representatives;
+using BioAlgorithmViewModel.HittingSet;
 
 namespace BioAlgorithmViewModel
 {
@@ -8,22 +8,22 @@ namespace BioAlgorithmViewModel
     //----------------------------------------------------------------------------------------------------------------------
     public class AlgorithmViewModel : ViewModelBase
     {
-        private RepresentativesViewModel representatives;
-        public RepresentativesViewModel Representatives
+        private HittingSetViewModel hittingSets;
+        public HittingSetViewModel HittingSets
         {
             get
             {
-                return representatives;
+                return hittingSets;
             }
             set
             {
-                representatives = value;
-                OnPropertyChanged(nameof(Representatives));
+                hittingSets = value;
+                OnPropertyChanged(nameof(HittingSets));
             }
         }
         public AlgorithmViewModel()
         {
-            Representatives = new RepresentativesViewModel();
+            HittingSets = new HittingSetViewModel();
         }
 
     }

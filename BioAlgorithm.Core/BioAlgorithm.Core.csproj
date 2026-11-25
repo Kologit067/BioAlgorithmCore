@@ -36,8 +36,8 @@
     <None Remove="Pictures\task3.png" />
     <None Remove="Pictures\task4.png" />
     <None Remove="Pictures\TaskType.ICO" />
-    <None Remove="Representatives\isomorphism-bipart.png" />
-    <None Remove="Representatives\isomorphism.png" />
+    <None Remove="HittingSet\isomorphism-bipart.png" />
+    <None Remove="HittingSet\isomorphism.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -128,8 +128,8 @@
     <Resource Include="Pictures\TaskType.ICO">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Representatives\isomorphism-bipart.png" />
-    <Resource Include="Representatives\isomorphism.png" />
+    <Resource Include="HittingSet\isomorphism-bipart.png" />
+    <Resource Include="HittingSet\isomorphism.png" />
   </ItemGroup>
 
   <ItemGroup>

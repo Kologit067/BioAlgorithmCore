@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BioAlgorithm"
         xmlns:v="clr-namespace:BioAlgorithmViewModel.BipartiteGraphModel;assembly=BioAlgorithmViewModel"
-        xmlns:ac="clr-namespace:BioAlgorithm.Core.Representatives"
+        xmlns:ac="clr-namespace:BioAlgorithm.Core.HittingSet"
         mc:Ignorable="d"
         Title="Bio Algorithms" Height="800" Width="1000"
         Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="/dna.png">
@@ -70,60 +70,60 @@
             <ColumnDefinition Width="154*"/>
             <ColumnDefinition Width="787*"/>
         </Grid.ColumnDefinitions>
-        <TabControl Grid.ColumnSpan="4" SelectedIndex="{Binding Representatives.SelectedTab}">
+        <TabControl Grid.ColumnSpan="4" SelectedIndex="{Binding HittingSets.SelectedTab}">
             <TabItem>
                 <TabItem.Header>
                     <Image Width="25" Height="25" Source="/Pictures/hs-algorithm-list.png" ToolTip="Hitting Set Algorithm List"/>
                 </TabItem.Header>
-                <ac:RepresentativeAlgorithmControl DataContext="{Binding Representatives.RepresentativePerformanceAlgorithm}"/>
+                <ac:HittingSetAlgorithmControl DataContext="{Binding HittingSets.HittingSetPerformanceAlgorithm}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <Image Width="25" Height="25" Source="/Pictures/hs-group-input.png" ToolTip="Hitting Set Group Input List"/>
                 </TabItem.Header>
-                <ac:HittingSetInputGroupControl DataContext="{Binding Representatives.HittingSetInputGroup}"/>
+                <ac:HittingSetInputGroupControl DataContext="{Binding HittingSets.HittingSetInputGroup}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <Image Width="25" Height="25" Source="/Pictures/hs-group-algorithm.png" ToolTip="Hitting Set Group Input-Algorithm List"/>
                 </TabItem.Header>
-                <ac:RepresentativeAlgorithmGroupControl DataContext="{Binding Representatives.RepresentativePerformanceGroup}"/>
+                <ac:HittingSetAlgorithmGroupControl DataContext="{Binding HittingSets.HittingSetPerformanceGroup}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <Image Width="25" Height="25" Source="/Pictures/hs-input.png" ToolTip="Hitting Set Input data"/>
                 </TabItem.Header>
-                <ac:HittingSetInputDataControl DataContext="{Binding Representatives.HittingSetInput}"/>
+                <ac:HittingSetInputDataControl DataContext="{Binding HittingSets.HittingSetInput}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <Image Width="25" Height="25" Source="/Pictures/greedy-comparison.png" ToolTip="Hitting Set Input Greedy Comparison"/>
                 </TabItem.Header>
-                <ac:HittingSetInputGreedyComparisonControl DataContext="{Binding Representatives.HittingSetInputGreedyComparison}"/>
+                <ac:HittingSetInputGreedyComparisonControl DataContext="{Binding HittingSets.HittingSetInputGreedyComparison}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <Image Width="25" Height="25" Source="/Pictures/hs-performance-result.png" ToolTip="Hitting Set Algorithm Performance Result"/>
                 </TabItem.Header>
-                <ac:RepresentativeControl DataContext="{Binding Representatives.RepresentativePerformance}"/>
+                <ac:HittingSetControl DataContext="{Binding HittingSets.HittingSetPerformance}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <Image Width="25" Height="25" Source="/Pictures/hs-algorithm-compare.png" ToolTip="Hitting Set Algorithm Compare"/>
                 </TabItem.Header>
-                <ac:RepresentativeAlgorithmCompareControl DataContext="{Binding Representatives.RepresentativePerformanceAlgorithmCompare}"/>
+                <ac:HittingSetAlgorithmCompareControl DataContext="{Binding HittingSets.HittingSetPerformanceAlgorithmCompare}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <Image Width="25" Height="25" Source="/Pictures/hs-master-details.png" ToolTip="Hitting Set Master-Details Form"/>
                 </TabItem.Header>
-                <ac:RepresentativeAlgorithmWithGroupControl DataContext="{Binding Representatives.RepresentativePerformanceAlgorithmWithGroup}"/>
+                <ac:HittingSetAlgorithmWithGroupControl DataContext="{Binding HittingSets.HittingSetPerformanceAlgorithmWithGroup}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <Image Width="25" Height="25" Source="/Pictures/hs-bipartite-graph.png" ToolTip="Hitting Set Bipartite Graph"/>
                 </TabItem.Header>
-                <ac:BipartiteGraphControl DataContext="{Binding Representatives.BipartiteGraph}"/>
+                <ac:BipartiteGraphControl DataContext="{Binding HittingSets.BipartiteGraph}"/>
             </TabItem>
         </TabControl>
     </Grid>

@@ -1,0 +1,116 @@
+﻿using BaseContract.Interfaces;
+
+namespace AlgorithmHittingSet
+{
+    //--------------------------------------------------------------------------------------
+    // class HittingSetBranchAndBoundByValue
+    //--------------------------------------------------------------------------------------
+    public class HittingSetBranchAndBoundByValue : HittingSetAsTree, IHittingSetAlgorithm
+    {
+        protected int _currentCardinality;
+        //--------------------------------------------------------------------------------------
+        public HittingSetBranchAndBoundByValue(int pLength)
+            : base(pLength)
+        {
+        }
+        //-----------------------------------------------------------------------------------
+        protected override void SupplementInitial()
+        {
+            StatisticAccumulator.CreateStatistics(listOfSet, _inputDataShort, AlgorithmName);
+            _currentCardinality = _fCurrentSet[0];
+        }
+        //-----------------------------------------------------------------------------------
+        public override void Execute(int[][] pListOfSet)
+        {
+            _currentCardinality = 0;
+            base.Execute(pListOfSet);
+            OptimalSets = OptimalSets.OrderBy(s => s).ToList();
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void RemoveAction(int element)
+        {
+            _currentCardinality -= element;
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void AddAction(int element)
+        {
+            _currentCardinality += element;
+        }
+        //--------------------------------------------------------------------------------------
+        protected override bool MakeAction()
+        {
+            if (_fCurrentPosition == _fSize - 1 && _currentCardinality <= currentMinimum)
+            {
+                bool isIntersect = IsIntersect();
+                if (isIntersect)
+                {
+                    UpdateOptimalResults(_currentCardinality);
+                }
+            }
+            return false;
+        }
+        //--------------------------------------------------------------------------------------
+        protected override bool IsCompleteCondition()
+        {
+            StatisticAccumulator.IterationCountInc();
+            IterationAction();
+            if ((_fCurrentPosition >= _fSize - 1) || IsCompleteByCardinality())
+            {
+                if (_fCurrentPosition < _fSize - 1)
+                    StatisticAccumulator.ElemenationCountInc();
+                else
+                    StatisticAccumulator.TerminalCountInc();
+                TerminalAction();
+                return true;
+            }
+            return false;
+        }
+        //-----------------------------------------------------------------------------------
+        protected virtual bool IsCompleteByCardinality()
+        {
+            return _currentCardinality > currentMinimum;
+        }
+        //--------------------------------------------------------------------------------------
+        public List<int> Result
+        {
+            get
+            {
+                List<int> result = new List<int>();
+                for (int i = 0; i < _fCurrentOptimalSet.Count; i++)
+                {
+                    if (_fCurrentOptimalSet[i] != 0)
+                        result.Add(i);
+                }
+                return result;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public List<string> OptimalSets
+        {
+            get
+            {
+                return _fOptimalSets;
+            }
+            set
+            {
+                _fOptimalSets = value;
+            }
+        }
+    }
+    //--------------------------------------------------------------------------------------
+    // class HittingSetBranchAndBoundFirst
+    //--------------------------------------------------------------------------------------
+    public class HittingSetBranchAndBoundFirst : HittingSetBranchAndBoundByValue
+    {
+        //--------------------------------------------------------------------------------------
+        public HittingSetBranchAndBoundFirst(int pLength)
+            : base(pLength)
+        {
+        }
+        //-----------------------------------------------------------------------------------
+        protected override bool IsCompleteByCardinality()
+        {
+            return _currentCardinality >= currentMinimum;
+        }
+    }
+}

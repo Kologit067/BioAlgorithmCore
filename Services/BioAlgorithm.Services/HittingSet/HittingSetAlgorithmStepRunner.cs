@@ -1,16 +1,16 @@
 ﻿using BaseLibrary.Helpers;
-using StatisticsStorage.Accumulators;
 using StatisticsStorage.Savers;
 using System.Numerics;
-using RepresentativesSet.Test;
 using BaseContract.Interfaces;
+using StatisticsStorage.Accumulators;
+using AlgorithmHittingSet.Test;
 
 namespace BioAlgorithm.Services.HittingSet
 {
 
-    public class HittingSetAlgorithmStepRunner : EnumerateRepresentativesWithStepTestBase
+    public class HittingSetAlgorithmStepRunner : EnumerateHittingSetWithStepTestBase
     {
-        protected List<RepresentativesStatisticAccumulator> _statisticAccumulators;
+        protected List<HittingSetStatisticAccumulator> _statisticAccumulators;
         protected readonly List<IHittingSetAlgorithm> hittingSetAlgorithms;
         protected readonly Combinatorics combinatorics;
 
@@ -49,22 +49,22 @@ namespace BioAlgorithm.Services.HittingSet
             _step = BigInteger.Divide(number, _maxCount);
 
             this.hittingSetAlgorithms = hittingSetAlgorithms;
-            _statisticAccumulators = new List<RepresentativesStatisticAccumulator> ();
+            _statisticAccumulators = new List<HittingSetStatisticAccumulator> ();
             if (_isSave)
             {
                 foreach (var algorithm in this.hittingSetAlgorithms)
                 {
-                    IRepresentativesSaver saver = null;
+                    IHittingSetSaver saver = null;
                     if (algorithm.AlgorithmName == "Empty")
                     {
-                        saver = new RepresentativesInputSaver();
+                        saver = new HittingSetInputSaver();
                     }
                     else
                     {
-                        saver = new RepresentativesSaver();
+                        saver = new HittingSetSaver();
                     }
 
-                    var statisticAccumulator = new RepresentativesStatisticAccumulator(saver, pLength, pCardinality, (decimal)_maxCount, (decimal)_step, bufferSize);
+                    var statisticAccumulator = new HittingSetStatisticAccumulator(saver, pLength, pCardinality, (decimal)_maxCount, (decimal)_step, bufferSize);
 
                     algorithm.StatisticAccumulator = statisticAccumulator;
                     _statisticAccumulators.Add(statisticAccumulator);

@@ -1,16 +1,16 @@
-﻿using RepresentativesSetTest.Base;
+﻿using BaseContract.Interfaces;
+using HittingSetTest.Base;
 using StatisticsStorage.Accumulators;
 using StatisticsStorage.Savers;
-using BaseContract.Interfaces;
 
 namespace BioAlgorithm.Services.HittingSet
 {
     //--------------------------------------------------------------------------------------
     // class HittingSetAlgorithmRunner
     //--------------------------------------------------------------------------------------
-    public class HittingSetAlgorithmRunner : EnumerateRepresentativesTestBase
+    public class HittingSetAlgorithmRunner : EnumerateHittingSetTestBase
     {
-        protected List<RepresentativesStatisticAccumulator> _statisticAccumulators;
+        protected List<HittingSetStatisticAccumulator> _statisticAccumulators;
 
         protected readonly List<IHittingSetAlgorithm> hittingSetAlgorithms;
         //--------------------------------------------------------------------------------------
@@ -19,22 +19,22 @@ namespace BioAlgorithm.Services.HittingSet
         {
             _isSave = isSave;
             this.hittingSetAlgorithms = hittingSetAlgorithms;
-            _statisticAccumulators = new List<RepresentativesStatisticAccumulator>();
+            _statisticAccumulators = new List<HittingSetStatisticAccumulator>();
             if (_isSave)
             {
                 foreach (IHittingSetAlgorithm algorithm in hittingSetAlgorithms)
                 {
-                    IRepresentativesSaver saver = null;
+                    IHittingSetSaver saver = null;
                     if (algorithm.AlgorithmName == "Empty")
                     {
-                        saver = new RepresentativesInputSaver();
+                        saver = new HittingSetInputSaver();
                     }
                     else
                     {
-                        saver = new RepresentativesSaver();
+                        saver = new HittingSetSaver();
                     }
 
-                    var statisticAccumulator = new RepresentativesStatisticAccumulator(saver, pLength, pCardinality, 0, 1, bufferSize);
+                    var statisticAccumulator = new HittingSetStatisticAccumulator(saver, pLength, pCardinality, 0, 1, bufferSize);
 
                     algorithm.StatisticAccumulator = statisticAccumulator;
                     _statisticAccumulators.Add(statisticAccumulator);
